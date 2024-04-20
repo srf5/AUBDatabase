@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="/static/logo.png" alt="Logo">
+        </div>
+        <nav class="tabs">
+            <a href="/">Home</a>
+            <a href="/students">Students</a>
+            <a href="/professors">Professors</a>
+            <a href="/courses">Courses</a>
+        </nav>
+    </header>
+    <hr class="line">
+    <h2>Professors</h2>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('courses')">Courses Given &#9660;</div>
+        <div class="container-content" id="courses-container">
+            <ul id="courses-list">
+                {% for course in courses %}
+                <li>{{ course.Name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('info')">Professor Information &#9660;</div>
+        <div class="container-content" id="info-container">
+            <ul>
+                <li><strong>Full Name:</strong> {{ professor.Fname }} {{ professor.Lname }}</li>
+                <li><strong>Research Area:</strong> {{ professor.ResearchArea }}</li>
+                <li><strong>Email:</strong> {{ professor.Email }}</li>
+                <li><strong>Title:</strong> {{ professor.Title }}</li>
+                <li><strong>Salary:</strong> {{ professor.Salary }}</li>
+                <li><strong>Date of Birth:</strong> {{ professor.DOB }}</li>
+                <li><strong>Hiring Date:</strong> {{ professor.HiringDate }}</li>
+                <li><strong>Phone Number:</strong> {{ professor.PhoneNumber }}</li>
+                <li><strong>Highest Education:</strong> {{ professor.HighestEducation }}</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script>
+    function toggleContainer(containerId) {
+        var container = document.getElementById(containerId + '-container');
+        container.classList.toggle('show');
+    }
+</script>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Main Page </title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+          <img src="/static/logo.png" alt="Logo">
+        </div>
+        <nav class="tabs">
+            <a href="/">Home</a>
+            <a href="/students">Students</a>
+            <a href="/professors">Professors</a>
+            <a href="/courses">Courses</a>
+        </nav>
+    </header>
+    <hr class="line">
+    <h2> Students </h2> 
+
+    <div class="student-id-form">
+        <label for="student-id">Enter Student ID:</label>
+        <input type="text" id="student-id" name="student-id">
+        <button type="submit">Submit</button>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('schedule')">Student Schedule &#9660;</div>
+        <div class="container-content" id="schedule-container">
+            <table id="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for timeSlot in timeSlots %}
+                    <tr>
+                        <td>{{ timeSlot }}</td>
+                        <td>
+                            {% for entry in scheduleData['Monday'] %}
+                                {% if entry.startTime == timeSlot %}
+                                    {{ entry.sectionName }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for entry in scheduleData['Tuesday'] %}
+                                {% if entry.startTime == timeSlot %}
+                                    {{ entry.sectionName }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for entry in scheduleData['Wednesday'] %}
+                                {% if entry.startTime == timeSlot %}
+                                    {{ entry.sectionName }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for entry in scheduleData['Thursday'] %}
+                                {% if entry.startTime == timeSlot %}
+                                    {{ entry.sectionName }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for entry in scheduleData['Friday'] %}
+                                {% if entry.startTime == timeSlot %}
+                                    {{ entry.sectionName }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+            
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('transcript')">Student Transcript &#9660;</div>
+        <div class="container-content" id="transcript-container">
+            <table id="transcript-table">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in transcriptData %}
+                    <tr>
+                        <td>{{ course.CourseName }}</td>
+                        <td>{{ course.Grade }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('clubs')">Student Clubs &#9660;</div>
+        <div class="container-content" id="clubs-container">
+                <h3>Student Clubs</h3>
+                <ul id="clubs-list">
+                    {% for club in clubs %}
+                        <li>{{ club.Name }} - Meeting Location: {{ club.MeetingLocation }}</li>
+                    {% endfor %}
+                </ul>            
+        </div>
+    </div>
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('info')">Student Information &#9660;</div>
+        <div class="container-content" id="info-container">
+                <h3>Student Information</h3>
+                <ul>
+                    <li><strong>First Name:</strong> {{ student.Fname }}</li>
+                    <li><strong>Last Name:</strong> {{ student.Lname }}</li>
+                    <li><strong>Major:</strong> {{ student.Major }}</li>
+                    <li><strong>Email:</strong> {{ student.Email }}</li>
+                    <li><strong>GPA:</strong> {{ student.GPA }}</li>
+                    <li><strong>Date of Birth:</strong> {{ student.DOB }}</li>
+                </ul>          
+        </div>
+    </div>
+</body>
+<script>
+    function toggleContainer(containerId) {
+        var container = document.getElementById(containerId + '-container');
+        container.classList.toggle('show');
+    }
+</script>
+</html>
+
