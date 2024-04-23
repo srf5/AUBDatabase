@@ -20,13 +20,17 @@
     </header>
     <hr class="line">
     <h2>Professors</h2>
-
+    <form action="/professors" method="GET">
+        <label for="professor-id">Enter Professor ID:</label>
+        <input type="text" id="professor-id" name="student-id">
+        <input type="submit" value="Submit">
+    </form>
     <div class="containers">
         <div class="container-header" onclick="toggleContainer('courses')">Courses Given &#9660;</div>
         <div class="container-content" id="courses-container">
             <ul id="courses-list">
                 {% for course in courses %}
-                <li>{{ course.Name }}</li>
+                <li>{{ course["Name"] }}</li>
                 {% endfor %}
             </ul>
         </div>
@@ -36,15 +40,15 @@
         <div class="container-header" onclick="toggleContainer('info')">Professor Information &#9660;</div>
         <div class="container-content" id="info-container">
             <ul>
-                <li><strong>Full Name:</strong> {{ professor.Fname }} {{ professor.Lname }}</li>
-                <li><strong>Research Area:</strong> {{ professor.ResearchArea }}</li>
-                <li><strong>Email:</strong> {{ professor.Email }}</li>
-                <li><strong>Title:</strong> {{ professor.Title }}</li>
-                <li><strong>Salary:</strong> {{ professor.Salary }}</li>
-                <li><strong>Date of Birth:</strong> {{ professor.DOB }}</li>
-                <li><strong>Hiring Date:</strong> {{ professor.HiringDate }}</li>
-                <li><strong>Phone Number:</strong> {{ professor.PhoneNumber }}</li>
-                <li><strong>Highest Education:</strong> {{ professor.HighestEducation }}</li>
+                <li><strong>Full Name:</strong> {{ professor["Fname"] }} {{ professor["Lname"] }}</li>
+                <li><strong>Research Area:</strong> {{ professor["ResearchArea"] }}</li>
+                <li><strong>Email:</strong> {{ professor{"Email"} }}</li>
+                <li><strong>Title:</strong> {{ professor["Title"] }}</li>
+                <li><strong>Salary:</strong> {{ professor["Salary"] }}</li>
+                <li><strong>Date of Birth:</strong> {{ professor.["DOB"] }}</li>
+                <li><strong>Hiring Date:</strong> {{ professor["HiringDate"] }}</li>
+                <li><strong>Phone Number:</strong> {{ professor["PhoneNumber"] }}</li>
+                <li><strong>Highest Education:</strong> {{ professor["HighestEducation"] }}</li>
             </ul>
         </div>
     </div>

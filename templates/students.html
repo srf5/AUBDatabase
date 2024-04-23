@@ -26,7 +26,11 @@
         <input type="text" id="student-id" name="student-id">
         <button type="submit">Submit</button>
     </div>
-
+    <form action="/students" method="GET">
+        <label for="student-id">Enter Student ID:</label>
+        <input type="text" id="student-id" name="student-id">
+        <input type="submit" value="Submit">
+    </form>
     <div class="containers">
         <div class="container-header" onclick="toggleContainer('schedule')">Student Schedule &#9660;</div>
         <div class="container-content" id="schedule-container">
@@ -46,37 +50,38 @@
                     <tr>
                         <td>{{ timeSlot }}</td>
                         <td>
-                            {% for entry in scheduleData['Monday'] %}
-                                {% if entry.startTime == timeSlot %}
-                                    {{ entry.sectionName }}
+                            {% for entry in scheduleData %}
+                                {% if entry["Day"] == "Monday" and entry["startTime"] == timeSlot %}
+                                    {{ entry["sectionName"] }} ({{ entry["startTime"] }} - {{ entry["endTime"] }})
                                 {% endif %}
                             {% endfor %}
+                        
                         </td>
                         <td>
                             {% for entry in scheduleData['Tuesday'] %}
                                 {% if entry.startTime == timeSlot %}
-                                    {{ entry.sectionName }}
+                                    {{ entry["sectionName"] }}
                                 {% endif %}
                             {% endfor %}
                         </td>
                         <td>
                             {% for entry in scheduleData['Wednesday'] %}
-                                {% if entry.startTime == timeSlot %}
-                                    {{ entry.sectionName }}
+                                {% if eentry.startTime == timeSlot %}
+                                    {{ entry["sectionName"] }}
                                 {% endif %}
                             {% endfor %}
                         </td>
                         <td>
                             {% for entry in scheduleData['Thursday'] %}
                                 {% if entry.startTime == timeSlot %}
-                                    {{ entry.sectionName }}
+                                    {{ entry["sectionName"] }}
                                 {% endif %}
                             {% endfor %}
                         </td>
                         <td>
                             {% for entry in scheduleData['Friday'] %}
                                 {% if entry.startTime == timeSlot %}
-                                    {{ entry.sectionName }}
+                                    {{ entry["sectionName"] }}
                                 {% endif %}
                             {% endfor %}
                         </td>
@@ -102,8 +107,8 @@
                 <tbody>
                     {% for course in transcriptData %}
                     <tr>
-                        <td>{{ course.CourseName }}</td>
-                        <td>{{ course.Grade }}</td>
+                        <td>{{ course["CourseName"] }}</td>
+                        <td>{{ course["Grade"] }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -117,7 +122,7 @@
                 <h3>Student Clubs</h3>
                 <ul id="clubs-list">
                     {% for club in clubs %}
-                        <li>{{ club.Name }} - Meeting Location: {{ club.MeetingLocation }}</li>
+                        <li>{{ club["Name"] }} - Meeting Location: {{ club["MeetingLocation"] }}</li>
                     {% endfor %}
                 </ul>            
         </div>
@@ -127,12 +132,12 @@
         <div class="container-content" id="info-container">
                 <h3>Student Information</h3>
                 <ul>
-                    <li><strong>First Name:</strong> {{ student.Fname }}</li>
-                    <li><strong>Last Name:</strong> {{ student.Lname }}</li>
-                    <li><strong>Major:</strong> {{ student.Major }}</li>
-                    <li><strong>Email:</strong> {{ student.Email }}</li>
-                    <li><strong>GPA:</strong> {{ student.GPA }}</li>
-                    <li><strong>Date of Birth:</strong> {{ student.DOB }}</li>
+                    <li><strong>First Name:</strong> {{ information_data['First_Name'] }}</li>
+                    <li><strong>Last Name:</strong> {{ information_data['Last_Name'] }}</li>
+                    <li><strong>Major:</strong> {{ information_data['Major_Name'] }}</li>
+                    <li><strong>Email:</strong> {{ information_data['Email'] }}</li>
+                    <li><strong>GPA:</strong> {{ information_data['GPA'] }}</li>
+                    <li><strong>Date of Birth:</strong> {{ information_data['Date_of_Birth'] }}</li>
                 </ul>          
         </div>
     </div>
