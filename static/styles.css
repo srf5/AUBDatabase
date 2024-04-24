@@ -67,17 +67,17 @@ h2 {
 
 /* student */
 
-.student-id-form {
+form {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.student-id-form label {
+label {
     font-size: 18px;
     margin-right: 10px;
 }
 
-.student-id-form input[type="text"] {
+input[type="text"], input[type="number"] {
     width: 200px;
     padding: 8px;
     font-size: 16px;
@@ -85,7 +85,7 @@ h2 {
     border-radius: 5px;
 }
 
-.student-id-form button {
+input[type="submit"] {
     padding: 8px 20px;
     font-size: 16px;
     background-color: #840132;
@@ -95,7 +95,7 @@ h2 {
     cursor: pointer;
 }
 
-.student-id-form button:hover {
+input[type="submit"]:hover {
     background-color: #a75959;
 }
 
@@ -124,68 +124,33 @@ h2 {
 }
 
 /* Style for the schedule table */
-#schedule-table {
+#table {
     width: 100%;
     border-collapse: collapse; /* Collapse borders between cells */
 }
 
 /* Style for table header */
-#schedule-table th {
+#table th {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ccc; /* Add line under header */
 }
 
 /* Add vertical lines between all cells */
-#schedule-table td,
-#schedule-table th {
+#table td,
+#table th {
     padding: 10px;
     border-right: 1px solid #ccc; /* Add vertical lines between all cells */
 }
 
 /* Add horizontal lines between rows */
-#schedule-table tr:not(:last-child) {
+#table tr:not(:last-child) {
     border-bottom: 1px solid #ccc;
 }
 
 /* Add spacing between columns */
-#schedule-table th:not(:first-child),
-#schedule-table td:not(:first-child) {
-    padding-left: 20px;
-}
-
-/* Style for the transcript table */
-#transcript-table {
-    width: 100%;
-    border-collapse: collapse; /* Collapse borders between cells */
-}
-
-/* Style for table header */
-#transcript-table th {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ccc; /* Add line under header */
-}
-
-/* Style for table cells */
-#transcript-table td {
-    padding: 10px;
-    border-right: 1px solid #ccc; /* Add vertical lines between columns */
-}
-
-/* Remove right border from last cell in each row */
-#transcript-table tr td:last-child {
-    border-right: none;
-}
-
-/* Add horizontal lines between rows */
-#transcript-table tr:not(:last-child) {
-    border-bottom: 1px solid #ccc;
-}
-
-/* Add spacing between columns */
-#transcript-table th:not(:first-child),
-#transcript-table td:not(:first-child) {
+#table th:not(:first-child),
+#table td:not(:first-child) {
     padding-left: 20px;
 }
 

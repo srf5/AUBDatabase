@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Clubs </title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+          <img src="/static/logo.png" alt="Logo">
+        </div>
+        <nav class="tabs">
+            <a href="/">Home</a>
+            <a href="/students">Students</a>
+            <a href="/professors">Professors</a>
+            <a href="/courses">Courses</a>
+            <a href="/departments">Departments</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/rooms">Rooms</a>
+            <a href="/majors">Majors</a>
+            <a href="/sections">Sections</a>
+        </nav>
+    </header>
+    <hr class="line">
+        <h2> Clubs </h2> 
+    <form action="/clubs" method="GET">
+        <label for="club-id">Enter Club ID:</label>
+        <input type="number" id="club-id" name="club-id">
+        <input type="submit" value="Submit">
+    </form>
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('club-info')">Club Information &#9660;</div>
+        <div class="container-content" id="club-info-container">
+            <ul>
+                <li><strong>Club Name:</strong> {{ club["Club_Name"] }}</li>
+                <li><strong>President Name:</strong> {{ club["President_Name"] }}</li>
+                <li><strong>Advisor Name:</strong> {{ club["Advisor_Name"] }}</li>
+                <li><strong>Meeting Building:</strong> {{ club["Meeting_Building"] }}</li>
+                <li><strong>Meeting Room Number:</strong> {{ club["Meeting_Room_Number"] }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('students')">Students Enrolled &#9660;</div>
+        <div class="container-content" id="students-container">
+            <ul>
+                {% for student in students %}
+                <li>{{ student["Student_Name"] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    </body>
+    <script>
+    function toggleContainer(containerId) {
+        var container = document.getElementById(containerId + '-container');
+        container.classList.toggle('show');
+    }
+    </script>
+    </html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="/static/logo.png" alt="Logo">
+        </div>
+        <nav class="tabs">
+            <a href="/">Home</a>
+            <a href="/students">Students</a>
+            <a href="/professors">Professors</a>
+            <a href="/courses">Courses</a>
+            <a href="/departments">Departments</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/rooms">Rooms</a>
+            <a href="/majors">Majors</a>
+            <a href="/sections">Sections</a>
+        </nav>
+    </header>
+    <hr class="line">
+    <h2>Courses</h2>
+    <form action="/courses" method="GET">
+        <label for="course-id">Enter Course ID:</label>
+        <input type="number" id="course-id" name="course-id">
+        <input type="submit" value="Submit">
+    </form>
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('course-info')">Course Information &#9660;</div>
+        <div class="container-content" id="course-info-container">
+            <ul>
+                <li><strong>Course Name:</strong> {{ course["Course_Name"] }}</li>
+                <li><strong>Credit Hours:</strong> {{ course["Credit_Hours"] }}</li>
+                <li><strong>Course Description:</strong> {{ course["Course_Description"] }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('corequisites')">Corequisite Courses &#9660;</div>
+        <div class="container-content" id="corequisites-container">
+            <ul>
+                {% for coreq in corequisites %}
+                <li>{{ coreq }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('prerequisites')">Prerequisite Courses &#9660;</div>
+        <div class="container-content" id="prerequisites-container">
+            <ul>
+                {% for prereq in prerequisites %}
+                <li>{{ prereq }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('accounts')">Accounts For Information &#9660;</div>
+        <div class="container-content" id="accounts-container">
+            <ul>
+                {% for account in accounts_for %}
+                <li>{{ account }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('restrictions')">Restrictions &#9660;</div>
+        <div class="container-content" id="restrictions-container">
+            <ul>
+                {% for restriction in restrictions %}
+                <li>{{ restriction }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('sections')">Sections &#9660;</div>
+        <div class="container-content" id="sections-container">
+            <table id="table">
+                <tr>
+                    <th>Section CRN</th>
+                    <th>Semester Given</th>
+                    <th>Year Given</th>
+                </tr>
+                {% for section in sections %}
+                <tr>
+                    <td>{{ section["Section_CRN"] }}</td>
+                    <td>{{ section["Semester"] }}</td>
+                    <td>{{ section["Year"] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</body>
+<script>
+    function toggleContainer(containerId) {
+        var container = document.getElementById(containerId + '-container');
+        container.classList.toggle('show');
+    }
+</script>
+</html>

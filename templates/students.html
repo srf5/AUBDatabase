@@ -16,16 +16,15 @@
             <a href="/students">Students</a>
             <a href="/professors">Professors</a>
             <a href="/courses">Courses</a>
+            <a href="/departments">Departments</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/rooms">Rooms</a>
+            <a href="/majors">Majors</a>
+            <a href="/sections">Sections</a>
         </nav>
     </header>
     <hr class="line">
     <h2> Students </h2> 
-
-    <div class="student-id-form">
-        <label for="student-id">Enter Student ID:</label>
-        <input type="text" id="student-id" name="student-id">
-        <button type="submit">Submit</button>
-    </div>
     <form action="/students" method="GET">
         <label for="student-id">Enter Student ID:</label>
         <input type="text" id="student-id" name="student-id">
@@ -34,7 +33,7 @@
     <div class="containers">
         <div class="container-header" onclick="toggleContainer('schedule')">Student Schedule &#9660;</div>
         <div class="container-content" id="schedule-container">
-            <table id="schedule-table">
+            <table id="table">
                 <thead>
                     <tr>
                         <th>Time</th>
@@ -97,7 +96,7 @@
     <div class="containers">
         <div class="container-header" onclick="toggleContainer('transcript')">Student Transcript &#9660;</div>
         <div class="container-content" id="transcript-container">
-            <table id="transcript-table">
+            <table id="table">
                 <thead>
                     <tr>
                         <th>Course Name</th>

@@ -16,13 +16,18 @@
             <a href="/students">Students</a>
             <a href="/professors">Professors</a>
             <a href="/courses">Courses</a>
+            <a href="/departments">Departments</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/rooms">Rooms</a>
+            <a href="/majors">Majors</a>
+            <a href="/sections">Sections</a>
         </nav>
     </header>
     <hr class="line">
     <h2>Professors</h2>
     <form action="/professors" method="GET">
         <label for="professor-id">Enter Professor ID:</label>
-        <input type="text" id="professor-id" name="student-id">
+        <input type="number" id="professor-id" name="professor-id">
         <input type="submit" value="Submit">
     </form>
     <div class="containers">
@@ -42,13 +47,22 @@
             <ul>
                 <li><strong>Full Name:</strong> {{ professor["Fname"] }} {{ professor["Lname"] }}</li>
                 <li><strong>Research Area:</strong> {{ professor["ResearchArea"] }}</li>
-                <li><strong>Email:</strong> {{ professor{"Email"} }}</li>
+                <li><strong>Email:</strong> {{ professor["Email"] }}</li>
                 <li><strong>Title:</strong> {{ professor["Title"] }}</li>
                 <li><strong>Salary:</strong> {{ professor["Salary"] }}</li>
-                <li><strong>Date of Birth:</strong> {{ professor.["DOB"] }}</li>
+                <li><strong>Date of Birth:</strong> {{ professor["DOB"] }}</li>
                 <li><strong>Hiring Date:</strong> {{ professor["HiringDate"] }}</li>
                 <li><strong>Phone Number:</strong> {{ professor["PhoneNumber"] }}</li>
                 <li><strong>Highest Education:</strong> {{ professor["HighestEducation"] }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('office')">Office Location &#9660;</div>
+        <div class="container-content" id="office-container">
+            <ul>
+                <li><strong>Building:</strong> {{ office[0] }}</li>
+                <li><strong>Room:</strong> {{ office[1] }}</li>
             </ul>
         </div>
     </div>

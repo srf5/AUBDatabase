@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Main Page </title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+          <img src="/static/logo.png" alt="Logo">
+        </div>
+        <nav class="tabs">
+            <a href="/">Home</a>
+            <a href="/students">Students</a>
+            <a href="/professors">Professors</a>
+            <a href="/courses">Courses</a>
+            <a href="/departments">Departments</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/rooms">Rooms</a>
+            <a href="/majors">Majors</a>
+            <a href="/sections">Sections</a>
+        </nav>
+    </header>
+    <hr class="line">
+    <h2> Sections </h2> 
+    <form action="/sections" method="GET">
+        <label for="section-crn">Enter Section CRN:</label>
+        <input type="number" id="section-crn" name="section-crn">
+        <input type="submit" value="Submit">
+    </form>
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('section-info')">Section Information &#9660;</div>
+        <div class="container-content" id="section-info-container">
+            <ul>
+                <li><strong>Max Enrollment:</strong> {{ section["Max_Enrollment"] }}</li>
+                <li><strong>Actual Enrollment:</strong> {{ section["Actual_Enrollment"] }}</li>
+                <li><strong>Course Name:</strong> {{ section["Course_Name"] }}</li>
+                <li><strong>Professor Name:</strong> {{ section["Professor_Name"] }}</li>
+                <li><strong>Building:</strong> {{ section["Building"] }}</li>
+                <li><strong>Room Number:</strong> {{ section["Room_Number"] }}</li>
+                <li><strong>Semester:</strong> {{ section["Semester"] }}</li>
+                <li><strong>Year:</strong> {{ section["Year"] }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('recitation-info')">Recitation Information &#9660;</div>
+        <div class="container-content" id="recitation-info-container">
+            {% if recitation %}
+            <ul>
+                <li><strong>Max Enrollment:</strong> {{ recitation["Max_Enrollment"] }}</li>
+                <li><strong>Actual Enrollment:</strong> {{ recitation["Actual_Enrollment"] }}</li>
+                <li><strong>Course Name:</strong> {{ recitation["Course_Name"] }}</li>
+                <li><strong>Professor Name:</strong> {{ recitation["Professor_Name"] }}</li>
+                <li><strong>Building:</strong> {{ recitation["Building"] }}</li>
+                <li><strong>Room Number:</strong> {{ recitation["Room_Number"] }}</li>
+                <li><strong>Day:</strong> {{ recitation["Day"] }}</li>
+                <li><strong>Start Time:</strong> {{ recitation["Start_Time"] }}</li>
+                <li><strong>End Time:</strong> {{ recitation["End_Time"] }}</li>
+                <li><strong>Semester:</strong> {{ recitation["Semester"] }}</li>
+                <li><strong>Year:</strong> {{ recitation["Year"] }}</li>
+            </ul>
+            {% else %}
+            <p>No recitation found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="containers">
+        <div class="container-header" onclick="toggleContainer('timings')">Timings &#9660;</div>
+        <div class="container-content" id="timings-container">
+            <ul>
+                {% for timing in timings %}
+                <li>
+                    <strong>Day:</strong> {{ timing["Day"] }}<br>
+                    <strong>Start Time:</strong> {{ timing["Start_Time"] }}<br>
+                    <strong>End Time:</strong> {{ timing["End_Time"] }}<br>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script>
+    function toggleContainer(containerId) {
+        var container = document.getElementById(containerId + '-container');
+        container.classList.toggle('show');
+    }
+</script>
+</html>
