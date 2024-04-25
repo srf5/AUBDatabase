@@ -49,47 +49,54 @@
                     <tr>
                         <td>{{ timeSlot }}</td>
                         <td>
-                            {% for entry in scheduleData %}
-                                {% if entry["Day"] == "Monday" and entry["startTime"] == timeSlot %}
-                                    {{ entry["sectionName"] }} ({{ entry["startTime"] }} - {{ entry["endTime"] }})
-                                {% endif %}
-                            {% endfor %}
-                        
-                        </td>
-                        <td>
-                            {% for entry in scheduleData['Tuesday'] %}
-                                {% if entry.startTime == timeSlot %}
-                                    {{ entry["sectionName"] }}
+                            {% for entries in scheduleData %}
+                                {% if entries["Day"] == 'Monday' %}
+                                        {% if entries["startTime"] == timeSlot %}
+                                            {{ entries["sectionName"] }} 
+                                        {% endif %}
                                 {% endif %}
                             {% endfor %}
                         </td>
                         <td>
-                            {% for entry in scheduleData['Wednesday'] %}
-                                {% if eentry.startTime == timeSlot %}
-                                    {{ entry["sectionName"] }}
+                            {% for entries in scheduleData %}
+                                {% if entries["Day"] == 'Tuesday' %}
+                                        {% if entries["startTime"] == timeSlot %}
+                                            {{ entries["sectionName"] }}
+                                        {% endif %}
                                 {% endif %}
                             {% endfor %}
                         </td>
                         <td>
-                            {% for entry in scheduleData['Thursday'] %}
-                                {% if entry.startTime == timeSlot %}
-                                    {{ entry["sectionName"] }}
+                            {% for entries in scheduleData %}
+                                {% if entries["Day"] == 'Wednesday' %}
+                                        {% if entries["startTime"] == timeSlot %}
+                                            {{ entries["sectionName"] }} 
+                                        {% endif %}
                                 {% endif %}
                             {% endfor %}
                         </td>
                         <td>
-                            {% for entry in scheduleData['Friday'] %}
-                                {% if entry.startTime == timeSlot %}
-                                    {{ entry["sectionName"] }}
+                            {% for entries in scheduleData %}
+                                {% if entries["Day"] == 'Thursday' %}
+                                        {% if entries["startTime"] == timeSlot %}
+                                            {{ entries["sectionName"] }} 
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for entries in scheduleData %}
+                                {% if entries["Day"] == 'Friday' %}
+                                        {% if entries["startTime"] == timeSlot %}
+                                            {{ entries["sectionName"] }} 
+                                        {% endif %}
                                 {% endif %}
                             {% endfor %}
                         </td>
                     </tr>
                     {% endfor %}
-                </tbody>
-                
-            </table>
-            
+                </tbody> 
+            </table>           
         </div>
     </div>
 

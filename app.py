@@ -10,7 +10,7 @@ def main_page():
 # SQLite database connection
 # Database connection
 conn = psycopg2.connect(
-    database="AUBDatabase_project",
+    database="Project_433_AUB_Database",
     user="postgres",
     password="postgres",
     host="localhost",
@@ -27,10 +27,10 @@ def students_page():
     #print(student_id)
 
     timeSlots = [
-        "9:00 AM", "10:00 AM", "11:00 AM",
-        "12:00 PM", "1:00 PM", "2:00 PM",
-        "3:00 PM", "4:00 PM", "5:00 PM",
-        "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM"
+        "09:00", "10:00", "11:00",
+        "12:00", "01:00", "02:00",
+        "03:00", "04:00", "05:00",
+        "06:00", "07:00", "08:00"
     ]
 
     # Fetching student information
@@ -112,7 +112,7 @@ def students_page():
             sse.student_id = %s;
     """, (student_id,))
     schedule_data_list = [{"sectionName": entry[0], "Day": entry[1], "startTime": entry[2], "endTime": entry[3]} for entry in cursor.fetchall()]
-    #print(schedule_data_list)
+    print(schedule_data_list)
     # Fetching student transcript data
     cursor.execute("""
         SELECT 
