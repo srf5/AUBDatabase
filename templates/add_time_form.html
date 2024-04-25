@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Section Time </title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+          <img src="/static/logo.png" alt="Logo">
+        </div>
+        <nav class="tabs">
+            <a href="/">Home</a>
+            <a href="/add_section">Add Section</a>
+            <a href="/add_section_time">Add Section time</a>
+            <a href="/sections_by_semester"> Sections by Semesters</a>
+          </nav>
+    </header>
+    <hr class="line">
+    <h2> Add Time to Section </h2> 
+    <form action="/add_section_time" method="post">
+        <label for="section_crn">Section CRN:</label>
+        <select id="section_crn" name="section_crn" required>
+            {% for crn in crns %}
+                <option value="{{ crn[0] }}">{{ crn[0] }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="day_schedule">Day Schedule:</label>
+        <select id="day_schedule" name="day_schedule" required>
+            {% for days in days %}
+                <option value="{{ days }}">{{ days}}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="start_time">Start Time:</label>
+        <input type="time" id="start_time" name="start_time" required><br><br>
+        <label for="end_time">End Time:</label>
+        <input type="time" id="end_time" name="end_time" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

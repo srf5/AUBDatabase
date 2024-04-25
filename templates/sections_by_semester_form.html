@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Main Page </title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+          <img src="/static/logo.png" alt="Logo">
+        </div>
+        <nav class="tabs">
+            <a href="/">Home</a>
+            <a href="/add_section">Add Section</a>
+            <a href="/add_section_time">Add Section time</a>
+            <a href="/sections_by_semester"> Sections by Semesters</a>
+          </nav>
+    </header>
+    <hr class="line">
+    <h2> Select Semester and Year to View Sections </h2> 
+    <form action="/sections_by_semester" method="post">
+        <label for="semester_given">Semester:</label>
+        <select id="semester_given" name="semester_given" required>
+            {% for semester in semesters %}
+                <option value="{{ semester }}">{{ semester }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="year_given">Year:</label>
+        <select id="year_given" name="year_given" required>
+            {% for semester, year in semester_years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

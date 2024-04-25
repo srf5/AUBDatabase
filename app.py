@@ -10,7 +10,7 @@ def main_page():
 # SQLite database connection
 # Database connection
 conn = psycopg2.connect(
-    database="Project_433_AUB_Database",
+    database="AUB_Database_final",
     user="postgres",
     password="postgres",
     host="localhost",
@@ -567,7 +567,93 @@ def section_info():
     # Render the section page with all collected information
     return render_template('sections.html', section=section_info, recitation=recitation_info, timings=timings)
 
+@app.route('/add_section_time', methods=['GET', 'POST'])
+def add_section_time():
+    
+    # Fetch all CRNs to populate the dropdown
+    cursor.execute('SELECT DISTINCT crn FROM section ORDER BY crn')
+    crns = cursor.fetchall()
+    Days=['Monday','Tuesday','Wednesday','Thursday','Friday']
 
+    if request.method == 'POST':
+        # Retrieve data from form
+        section_crn = request.form['section_crn']
+        day_schedule = request.form['day_schedule']
+        start_time = request.form['start_time']
+        end_time = request.form['end_time']
+
+        try:
+            cursor.execute('CALL addsectiontime(%s, %s, %s, %s)', (section_crn, day_schedule, start_time, end_time,))
+            conn.commit()
+            return render_template('success.html', message="Time added successfully for section CRN: " + section_crn)
+        except psycopg2.Error as e:
+            conn.rollback()
+            return render_template('error.html', error=str(e))
+    else:
+        # GET request: show the form to the user
+        return render_template('add_time_form.html', crns=crns, days=Days)
+
+  
+@app.route('/add_section', methods=['GET', 'POST'])
+def add_section():
+
+    # Fetch courses, professors, and sections to populate the form
+    cursor.execute('SELECT id, name FROM course')
+    courses = cursor.fetchall()
+    cursor.execute('SELECT id, CONCAT(fname' ' ,  lname) AS name FROM professor')
+    professors = cursor.fetchall()
+    cursor.execute('SELECT crn FROM section')
+    sections = cursor.fetchall()
+    cursor.execute('SELECT number, building FROM room')
+    room_building= cursor.fetchall()
+
+    if request.method == 'POST':
+        # Retrieve data from form
+        crn = request.form['crn']
+        max_enrollment = request.form['max_enrollment']
+        actual_enrollment = request.form['actual_enrollment']
+        rec_crn = request.form['rec_crn']
+        course_id = request.form['course_id']
+        professor_id = request.form['professor_id']
+        room = request.form['room']
+        building = request.form['building'] 
+        semester_given = request.form['semester_given']
+        year_given = request.form['year_given']
+        print(room)
+        print(building)
+        try:
+            p=cursor.execute('select number from room where building=%s', (building,))
+            print(building)
+            cursor.execute('CALL AddSection(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', (crn, max_enrollment, actual_enrollment, rec_crn, course_id, professor_id,  building, room, semester_given, year_given,))
+            conn.commit()
+            return render_template('success.html', message="Section added successfully with CRN: " + crn)
+        except psycopg2.Error as e:
+            conn.rollback()
+            return render_template('error.html', error=str(e))
+    else:
+        # GET request: show the form to the user with dropdowns
+        return render_template('add_section.html', courses=courses, professors=professors, sections=sections, room_building=room_building)
+
+
+
+@app.route('/sections_by_semester', methods=['GET', 'POST'])
+def sections_by_semester():
+
+    # Fetch distinct semesters and years for dropdown
+    cursor.execute('SELECT DISTINCT semester_given, year_given FROM section ORDER BY year_given, semester_given')
+    semester_years = cursor.fetchall()
+    semesters=[ "Fall", "Spring", "Summer" ]
+    if request.method == 'POST':
+        p_semester_given = request.form['semester_given']
+        p_year_given = request.form['year_given']
+        # Call the stored function
+        cursor.execute('SELECT * FROM GetSectionsBySemester(%s, %s)', (p_semester_given, p_year_given))
+        sections = cursor.fetchall()
+        return render_template('display_sections.html', sections=sections, semester_years=semester_years, selected_semester=p_semester_given, selected_year=p_year_given)
+    else:
+        # GET request, show only the form
+        return render_template('sections_by_semester_form.html', semester_years=semester_years, semesters=semesters)
+    
 if __name__ == '__main__':
     app.run(debug=True)
 

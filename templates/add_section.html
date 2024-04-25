@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Section Time </title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+          <img src="/static/logo.png" alt="Logo">
+        </div>
+        <nav class="tabs">
+            <a href="/">Home</a>
+            <a href="/add_section">Add Section</a>
+            <a href="/add_section_time">Add Section time</a>
+            <a href="/sections_by_semester"> Sections by Semesters</a>
+          </nav>
+    </header>
+    <hr class="line">
+    <h2> Add a New Section </h2> 
+    <form action="/add_section" method="post">
+        <label for="crn">CRN:</label>
+        <input type="text" id="crn" name="crn" required><br><br>
+        <label for="max_enrollment">Max Enrollment:</label>
+        <input type="number" id="max_enrollment" name="max_enrollment" required><br><br>
+        <label for="actual_enrollment">Actual Enrollment:</label>
+        <input type="number" id="actual_enrollment" name="actual_enrollment" required><br><br>
+        <label for="rec_crn">Recitation CRN:</label>
+        <select id="rec_crn" name="rec_crn" required>
+            <option value="">None</option>
+            {% for section in sections %}
+                <option value="{{ section[0] }}">{{ section[0] }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="course_id">Course ID:</label>
+        <select id="course_id" name="course_id" required>
+            {% for course in courses %}
+                <option value="{{ course[0] }}">{{ course[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="professor_id">Professor ID:</label>
+        <select id="professor_id" name="professor_id" required>
+            {% for professor in professors %}
+                <option value="{{ professor[0] }}">{{ professor[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="room_building">Room and Building:</label>
+        <select name="room_building" id="room_building_select" required>
+            <option value="">None</option> 
+            {% for room_building_tuple in room_building %}
+                <option value="{{ room_building_tuple }}">{{ room_building_tuple[0] }}, {{ room_building_tuple[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+        <script>
+            console.log("JavaScript is executing!");
+            var roomBuildingSelect = document.querySelector('select[name="room_building"]');
+            roomBuildingSelect.addEventListener("change", function() {
+                var selectedValue = this.value.split(',');
+                document.getElementById("room_input").value = selectedValue[0].replace(/^\(|\)$/g, '');
+                document.getElementById("building_input").value = selectedValue[1].replace(/^\(|\)|'/g, '').trimStart();
+            });
+        </script>
+
+        <input type="hidden" name="room" id="room_input">
+        <input type="hidden" name="building" id="building_input">       
+        <label for="semester_given">Semester:</label>
+        <input type="text" id="semester_given" name="semester_given" required><br><br>
+        <label for="year_given">Year Given:</label>
+        <input type="text" id="year_given" name="year_given" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
