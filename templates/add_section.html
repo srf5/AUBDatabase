@@ -28,7 +28,7 @@
         <label for="actual_enrollment">Actual Enrollment:</label>
         <input type="number" id="actual_enrollment" name="actual_enrollment" required><br><br>
         <label for="rec_crn">Recitation CRN:</label>
-        <select id="rec_crn" name="rec_crn" required>
+        <select id="rec_crn" name="rec_crn">
             <option value="">None</option>
             {% for section in sections %}
                 <option value="{{ section[0] }}">{{ section[0] }}</option>

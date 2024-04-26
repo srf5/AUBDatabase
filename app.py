@@ -469,7 +469,8 @@ def section_info():
             r.building,
             r.number,
             s.semester_given,
-            s.year_given
+            s.year_given,
+            s.rec_crn
         FROM 
             section AS s
         JOIN 
@@ -493,41 +494,45 @@ def section_info():
         "Building": section[4],
         "Room_Number": section[5],
         "Semester": section[6],
-        "Year": section[7]
+        "Year": section[7],
+        "Recitation": section[8]
     }
     else:
         section_info={}
         
-    
-    # Fetch recitation for the section
-    cursor.execute('''
-        SELECT 
-            s.max_enrollment,
-            s.actual_enrollment,
-            c.name,
-            CONCAT(p.fname, ' ', p.lname) AS Professor_Name,
-            r.building,
-            r.number,
-            t.day_schedule,
-            t.start_time,
-            t.end_time,
-            s.semester_given,
-            s.year_given
-        FROM 
-            section AS s
-        JOIN 
-            course AS c ON s.course_id = c.id
-        JOIN 
-            professor AS p ON s.professor_id = p.id
-        JOIN 
-            room AS r ON s.room_id = r.number AND s.building = r.building
-        JOIN 
-            time AS t ON s.crn = t.section_crn
-        WHERE 
-            s.rec_crn = %s;
-    ''', (section_crn,))
-    recitation = cursor.fetchone()
-    #print(recitation)
+    if section is not None:
+        # Fetch recitation for the section
+        cursor.execute('''
+            SELECT 
+                s.max_enrollment,
+                s.actual_enrollment,
+                c.name,
+                CONCAT(p.fname, ' ', p.lname) AS Professor_Name,
+                r.building,
+                r.number,
+                t.day_schedule,
+                t.start_time,
+                t.end_time,
+                s.semester_given,
+                s.year_given
+            FROM 
+                section AS s
+            JOIN 
+                course AS c ON s.course_id = c.id
+            JOIN 
+                professor AS p ON s.professor_id = p.id
+            JOIN 
+                room AS r ON s.room_id = r.number AND s.building = r.building
+            JOIN 
+                time AS t ON s.crn = t.section_crn
+            WHERE 
+                s.crn = %s;
+        ''', (section[8],))
+        recitation = cursor.fetchone()
+        #print(recitation)
+
+    else:
+        recitation={}
 
     # Fetch timing for the section
     cursor.execute('''
@@ -621,6 +626,7 @@ def add_section():
         year_given = request.form['year_given']
         print(room)
         print(building)
+        rec_crn=rec_crn or None
         try:
             p=cursor.execute('select number from room where building=%s', (building,))
             print(building)
